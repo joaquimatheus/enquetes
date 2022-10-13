@@ -1,0 +1,7 @@
+{
+  "name": "enquetes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "zakken <matheus@marcogabriel.com.br>",
+  "license": "unlicense"
+}
