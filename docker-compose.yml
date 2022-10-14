@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:8.0.31
     environment:
-      - MYSQL_DATABASE=quotes
+      - MYSQL_DATABASE=enquetes
       - MYSQL_ROOT_PASSWORD=mauFJcuf5dhRMQrjj
     ports:
       - "3306:3306"
