@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "zakken <matheus@marcogabriel.com.br>",
-  "license": "unlicense"
+  "license": "unlicense",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "knex": "^2.3.0",
+    "mysql": "^2.18.1"
+  }
 }
