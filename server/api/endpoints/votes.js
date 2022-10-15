@@ -1,14 +1,18 @@
-const Database = require('../../core/models/Database');
-const VotesModel = require('../../core/models/Votes');
+const express = require('express');
 
 module.exports = function(app) {
-    app.post('/api/v1/votes', express.json(), async function(app) {
+    app.post('/api/v1/votes', express.json(), async function(req, res) {
         const { name } = req.body;
 
-        const votesModel = new VotesModel(new Database);
-        
-        const votes = await votesModel.createVotes(name);
+        console.log(name);
 
-        res.status(200).json({ votesId: votes.id, votesName: votes.name });
+        res.status(200).json({ votesId: name, votesName: name });
+    });
+
+    app.get('/api/v1/votes', express.json(), async function(req, res) {
+
+        res.status(200).json({
+            votes: votes
+        })
     })
 }

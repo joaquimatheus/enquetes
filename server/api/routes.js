@@ -14,12 +14,12 @@ module.exports = (app) => {
     const _get = app.get;
     const _post = app.post;
 
-    app.post = (route) => {
+    app.post = function(route) {
         console.log(`Binding route: {POST} ${route}`);
         return _post.apply(this, arguments);
     };
 
-    app.get = (route) => {
+    app.get = function(route) {
         console.log(`Binding route: {GET} ${route}`);
         return _get.apply(this, arguments);
     };
