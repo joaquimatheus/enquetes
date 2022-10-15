@@ -1,12 +1,17 @@
 version: "3.8"
 services:
   db:
+    container_name: polls
     image: mysql:8.0.31
     environment:
-      - MYSQL_DATABASE=enquetes
-      - MYSQL_ROOT_PASSWORD=mauFJcuf5dhRMQrjj
+      - MYSQL_DATABASE=polls
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER='pollsby'
+      - MYSQL_PASSWORD='polls123'
     ports:
       - "3306:3306"
+    expose:
+      - '3306'
     volumes:
       - db:/var/lib/mysql
 volumes:
