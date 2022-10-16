@@ -7,7 +7,7 @@ class Options extends Model {}
 
 Options.init({
     id: {
-        type: Sequelize.DataTypes,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
@@ -63,13 +63,5 @@ Options.init({
     modelName: 'options',
     timestamps: true
 });
-
-(async() => {
-    const option = await Options.create(
-        {name_dynamic_1: 'Totalmente', name_dynamic_2: 'Discordo', name_dynamic: 'Nao tenho muita certeza', id_votes: 1}
-    )
-
-    console.log(option);
-})()
 
 module.exports = Options
