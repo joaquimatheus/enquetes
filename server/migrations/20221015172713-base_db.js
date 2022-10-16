@@ -5,7 +5,6 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 primarykey: true,
                 autoIncrement: true,
-                allowNull: false,
             },
             title: {
                 type: Sequelize.TEXT,
