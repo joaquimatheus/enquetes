@@ -13,6 +13,8 @@ module.exports = (app) => {
 
     const _get = app.get;
     const _post = app.post;
+    const _put = app.put;
+    const _delete = app.delete;
 
     app.post = function(route) {
         console.log(`Binding route: {POST} ${route}`);
@@ -24,10 +26,22 @@ module.exports = (app) => {
         return _get.apply(this, arguments);
     };
 
+    app.put = function(route) {
+        console.log(`Binding route: {PUT} ${route}`);
+        return _put.apply(this, arguments);
+    };
+
+    app.delete = function(route) {
+        console.log(`Binding route: {DELETE} ${route}`);
+        return _delete.apply(this, arguments);
+    };
+
     require('./endpoints/votes')(app);
     
     app.get = _get;
     app.post = _post;
+    app.put = _put;
+    app.delete = app.delete;
 
     app.use((req, res) => {
         res.status(404).json({
