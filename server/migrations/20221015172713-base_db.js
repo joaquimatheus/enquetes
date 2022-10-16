@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
     async up(queryInterface, Sequelize) {
         return queryInterface.createTable("polls", {
@@ -32,6 +30,9 @@ module.exports = {
             status: {
                 type: Sequelize.TEXT,
                 allowNull: false,
+            },
+            option_id: {
+                type: Sequelize.INTEGER,
             },
             createdAt: {
                 type: Sequelize.DATE,
