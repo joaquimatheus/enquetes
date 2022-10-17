@@ -1,0 +1,84 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-futura);
+}
+
+.head-enq {
+    font-family: var(--font-futura);
+    text-align: center;
+    padding: 1em;
+}
+
+.box {
+    background-color: #f3f3f3;
+    border-radius: 6px;
+    color: #4a4a4a;
+    padding: 1.25em;
+    margin: 0.5em;
+    width: 500px;
+}
+
+.form-group > label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.form-group > input[type='text'], input[type="datetime-local"] {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 2.25em;
+    justify-content: center;
+    line-height: 1.5;
+    padding: calc(0.375em - 1px) calc(0.625em - 1px);
+}
+
+input {
+    font-family: var(--font-futura);
+}
+
+label ~ input[type="radio"], input[type="radio"] ~ label {
+    height: 1.5em;
+    display: inline;
+}
+
+input[type="radio"] {
+    margin-right: 0.5em;
+}
+
+#options > h4 {
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+}
+
+.options-sep {
+    margin-bottom: 1em;
+}
+
+#yes-no > h4 {
+    margin-bottom: 0.7em;
+}
+
+#dynamically > h4 {
+    margin-bottom: 0.7em;
+}
+
+#rating > h4 {
+    margin-bottom: 0.7em;
+}
+
+.btn-submit {
+    position: relative;
+    margin: 10px;
+    padding: 0.7em;
+    font-size: 1.2em;
+    right: 202px;
+    border-radius: 0.5em;
+    border: 1px solid transparent;
+    background-color: #8ac926;
+    color: #fff;
+}
