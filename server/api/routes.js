@@ -40,6 +40,7 @@ module.exports = (app) => {
 
     require('./endpoints/votes')(app);
     require('./endpoints/options')(app);
+    require('./endpoints/polls')(app);
     
     app.get = _get;
     app.post = _post;
