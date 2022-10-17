@@ -13,7 +13,6 @@ module.exports = function (app) {
             let optionsChange;
 
             if(!(isEmpty(req.body))) {
-                console.log('aaaaaa')
                 optionsChange = req.json(req.body);
             }
 
@@ -77,7 +76,7 @@ module.exports = function (app) {
         })
     );
 
-    app.delete("/api/v1/options/:id", 
+    app.delete("/api/v1/options/:id",
         buildHandler(async function (req, res) {
             const id = req.string('id');
 
