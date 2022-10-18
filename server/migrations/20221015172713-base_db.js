@@ -15,6 +15,10 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
+            type_poll: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             time_start: {
                 type: Sequelize.DATE,
                 allowNull: false,
