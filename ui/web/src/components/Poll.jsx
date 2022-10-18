@@ -10,10 +10,11 @@ function Poll(props) {
     const [votes, setVotes] = useState();
     const [options, setOptions] = useState();
 
-    const { register, onChange } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const params = useParams();
     const { id } = params;
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,9 +58,25 @@ function Poll(props) {
     console.log('options', options);
     console.log('votes', votes);
 
+    const insertVote = async (data, voteId) => {
+        const getVotes = await axios.get(`http://localhost:4000/api/v1/votes/${voteId}`)
+            .then(res => { return res.data.data })
+            .catch(err => console.log(err))
+
+        const { option } = data;
+
+        const newVote = getVotes[option] += 1;
+
+        // const insertVote = await axios.post(`http://localhost:4000/api/v1/votes/${}`)
+    }
+
+    const onSubmit = async (data) => {
+        insertVote(data, votes.id) 
+    }
+
     return (
         <div className="container-inner">
-            <form id="enq" className="box">
+            <form onSubmit={handleSubmit(onSubmit)}id="enq" className="box">
                 <div>
                     {poll && poll.type_poll == 'yes_no' && (
                         <>
@@ -68,17 +85,19 @@ function Poll(props) {
                                 <input
                                     {...register("option")}
                                     type="radio"
-                                    value="yes_vote"
+                                    value="votes_yes"
                                 />
                                 <label>{options.yes_option}</label>
+                                <p>votos: {votes.votes_yes}</p>
                             </div>
                             <div className="form-group">
                                 <input
                                     {...register("option")}
                                     type="radio"
-                                    value="no_vote"
+                                    value="votes_no"
                                 />
                                 <label>{options.no_option}</label>
+                                <p>votos: {votes.votes_no}</p>
                             </div>
                         </>
                     )}
@@ -89,25 +108,28 @@ function Poll(props) {
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_dynamic_1"
+                                    value="votes_dynamic_1"
                                 />
                                 <label>{options.name_dynamic_1}</label>
+                                <p>votos: {votes.votes_dynamic_1}</p>
                             </div>
                             <div className="form-group">
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_dynamic_2"
+                                    value="votes_dynamic_2"
                                 />
                                 <label>{options.name_dynamic_2}</label>
+                                <p>votos: {votes.votes_dynamic_2}</p>
                             </div>
                             <div className="form-group">
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_dynamic_3"
+                                    value="votes_dynamic_3"
                                 />
                                 <label>{options.name_dynamic_3}</label>
+                                <p>votos: {votes.votes_dynamic_3}</p>
                             </div>
                         </>
                     )}
@@ -118,7 +140,7 @@ function Poll(props) {
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_rating_1"
+                                    value="votes_rating_1"
                                 />
                                 <label>{options.name_rating_1}</label>
                             </div>
@@ -126,7 +148,7 @@ function Poll(props) {
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_rating_2"
+                                    value="votes_rating_2"
                                 />
                                 <label>{options.name_rating_2}</label>
                             </div>
@@ -134,7 +156,7 @@ function Poll(props) {
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_rating_3"
+                                    value="votes_rating_3"
                                 />
                                 <label>{options.name_rating_3}</label>
                             </div>
@@ -142,7 +164,7 @@ function Poll(props) {
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_rating_4"
+                                    value="votes_rating_4"
                                 />
                                 <label>{options.name_rating_4}</label>
                             </div>
@@ -150,7 +172,7 @@ function Poll(props) {
                                 <input 
                                     {...register('option')}
                                     type="radio"
-                                    value="name_rating_5"
+                                    value="votes_rating_5"
                                 />
                                 <label>{options.name_rating_5}</label>
                             </div>
