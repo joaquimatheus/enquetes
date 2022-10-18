@@ -55,6 +55,7 @@ function FormPage() {
             .post("http://localhost:4000/api/v1/polls", {
                 option_id: data.option_id,
                 title: data.title,
+                type_poll: data.options_type,
                 time_start: data.time_start,
                 time_end: data.time_end,
                 status: "not-init",
