@@ -37,4 +37,4 @@ PRONTO! Agora esta tudo certo!
 
 - /form (rota para criar as enquetes)
 - /poll/:id (rota para ver a enquete criada) - (:id - é o ID da enquete )
-- /polls (ainda em desenvolvimento para ver todas as emquetes nao iniciadas, em andamento e finalizadas)
+- /polls (ainda em desenvolvimento para ver todas as enquetes nao iniciadas, em andamento e finalizadas)
