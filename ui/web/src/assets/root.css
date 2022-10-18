@@ -1,0 +1,11 @@
+@import url('http://fonts.cdnfonts.com/css/futura-md-bt');
+
+:root {
+    --font-futura: 'Futura Md BT', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

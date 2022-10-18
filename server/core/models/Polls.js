@@ -26,6 +26,10 @@ Polls.init({
         onDelete: "cascade",
         onUpdate: "cascade",
     },
+    type_poll: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     time_start: {
         type: Sequelize.DATE,
         allowNull: false,
