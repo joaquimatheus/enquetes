@@ -1,16 +1,73 @@
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 import "../assets/form.css";
 
 function FormPage() {
     const { register, handleSubmit, watch } = useForm();
-    const onSubmit = (data) => console.log(data);
+
+    async function createPolls(data) {
+        const votesId = await axios
+            .post("http://localhost:4000/api/v1/votes")
+            .then((res) => {
+                const { id } = res.data.data;
+                return id;
+            })
+            .catch((err) => console.error(err));
+
+        console.log("votesid_", votesId);
+
+        data.id_votes = votesId;
+
+        const optionsId = await axios
+            .post("http://localhost:4000/api/v1/options", {
+                id_votes: data.id_votes,
+                name_dynamic_1: data.name_dynamic_1 || "",
+                name_dynamic_2: data.name_dynamic_2 || "",
+                name_dynamic_3: data.name_dynamic_3 || "",
+                name_rating_1: data.name_rating_1 || "",
+                name_rating_2: data.name_rating_2 || "",
+                name_rating_3: data.name_rating_3 || "",
+                name_rating_4: data.name_rating_4 || "",
+                name_rating_5: data.name_rating_5 || "",
+                yes_option: data.yes_option || "",
+                no_option: data.no_option || "",
+            })
+            .then((res) => {
+                const { id } = res.data.data;
+                return id;
+            })
+            .catch((err) => console.error(err));
+
+        data.option_id = optionsId;
+        data.status = "not-init";
+
+        console.log(data);
+
+        const poll = await axios
+            .post("http://localhost:4000/api/v1/polls", {
+                option_id: data.option_id,
+                title: data.title,
+                time_start: data.time_start,
+                time_end: data.time_end,
+                status: "not-init",
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.error(err));
+    }
+
+    const onSubmit = (data) => {
+        console.log(data);
+        createPolls(data);
+    };
 
     const optionType = watch("options_type");
 
     return (
         <>
-            <h1 className="head-enq" >Criar enquete!</h1>
+            <h1 className="head-enq">Criar enquete!</h1>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="box">
@@ -192,8 +249,8 @@ function FormPage() {
                             <div className="form-group">
                                 <label>Inicio</label>
                                 <input
-                                    {...register("time_end", {
-                                        required: true
+                                    {...register("time_start", {
+                                        required: true,
                                     })}
                                     className="options-sep"
                                     type="datetime-local"
@@ -203,14 +260,14 @@ function FormPage() {
                                 <label>Termino</label>
                                 <input
                                     {...register("time_end", {
-                                        required: true
+                                        required: true,
                                     })}
                                     className="options-sep"
                                     type="datetime-local"
                                 />
                             </div>
                         </div>
-                        <input className="btn-submit"type="submit" />
+                        <input className="btn-submit" type="submit" />
                     </>
                 )}
             </form>
