@@ -1,10 +1,17 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+
 import axios from "axios";
 
 import "../assets/form.css";
 
 function FormPage() {
     const { register, handleSubmit, watch } = useForm();
+    const navigate = useNavigate();
+
+    const navigateToPoll = (id) => {
+        navigate(`/poll/${id}`);
+    };
 
     async function createPolls(data) {
         const votesId = await axios
@@ -53,14 +60,22 @@ function FormPage() {
                 status: "not-init",
             })
             .then((res) => {
-                console.log(res);
+                const { id } = res.data.data;
+                return id;
             })
             .catch((err) => console.error(err));
+
+        data.poll_id = poll;
+
+        return data;
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
-        createPolls(data);
+        const poll = await createPolls(data);
+        const { poll_id } = poll;
+
+        navigateToPoll(poll_id);
     };
 
     const optionType = watch("options_type");
@@ -69,7 +84,7 @@ function FormPage() {
         <>
             <h1 className="head-enq">Criar enquete!</h1>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="box">
                     <div className="form-group">
                         <label>Pergunta</label>
