@@ -42,6 +42,10 @@ function Poll(props) {
                 })
                 .catch((err) => console.error(err));
 
+            console.log('pollD', pollData);
+            console.log('optionsD', optionsData);
+            console.log('votesD', votesData);
+
             setPoll(pollData);
             setOptions(optionsData);
             setVotes(votesData);
@@ -49,33 +53,112 @@ function Poll(props) {
         fetchData();
     }, [axios, id]);
 
-    console.log(poll);
-    console.log(options);
-    console.log(votes);
+    console.log('poll', poll);
+    console.log('options', options);
+    console.log('votes', votes);
 
     return (
         <div className="container-inner">
             <form id="enq" className="box">
-                {poll && (
-                    <>
-                        <h4 className="head-enq">{poll.title}</h4>
-                        <div className="form-group">
-                            <input
-                                {...register("option")}
-                                type="radio"
-                                value="yes_vote"
-                            />
-                            <label>{options.yes_option}</label>
-                            <div className="form-group"></div>
-                            <input
-                                {...register("option")}
-                                type="radio"
-                                value="no_vote"
-                            />
-                            <label>{options.no_option}</label>
-                        </div>
-                    </>
-                )}
+                <div>
+                    {poll && poll.type_poll == 'yes_no' && (
+                        <>
+                            <h4 className="head-enq">{poll.title}</h4>
+                            <div className="form-group">
+                                <input
+                                    {...register("option")}
+                                    type="radio"
+                                    value="yes_vote"
+                                />
+                                <label>{options.yes_option}</label>
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    {...register("option")}
+                                    type="radio"
+                                    value="no_vote"
+                                />
+                                <label>{options.no_option}</label>
+                            </div>
+                        </>
+                    )}
+                    {poll && poll.type_poll == 'name_dynamically' && (
+                        <>
+                            <h4 className="head-eqn">{poll.title}</h4> 
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_dynamic_1"
+                                />
+                                <label>{options.name_dynamic_1}</label>
+                            </div>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_dynamic_2"
+                                />
+                                <label>{options.name_dynamic_2}</label>
+                            </div>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_dynamic_3"
+                                />
+                                <label>{options.name_dynamic_3}</label>
+                            </div>
+                        </>
+                    )}
+                    {poll && poll.type_poll == "rating" && (
+                        <>
+                            <h4 className="head-enq">{poll.title}</h4>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_rating_1"
+                                />
+                                <label>{options.name_rating_1}</label>
+                            </div>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_rating_2"
+                                />
+                                <label>{options.name_rating_2}</label>
+                            </div>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_rating_3"
+                                />
+                                <label>{options.name_rating_3}</label>
+                            </div>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_rating_4"
+                                />
+                                <label>{options.name_rating_4}</label>
+                            </div>
+                            <div className="form-group">
+                                <input 
+                                    {...register('option')}
+                                    type="radio"
+                                    value="name_rating_5"
+                                />
+                                <label>{options.name_rating_5}</label>
+                            </div>
+                        </>
+                    )}
+                </div>
+                <button className="btn-enq">Votar</button>
+                <button className="btn-enq">Resultado</button>
             </form>
         </div>
     );
