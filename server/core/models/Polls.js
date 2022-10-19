@@ -13,7 +13,7 @@ Polls.init({
         allowNull: false,
     },
     title: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         unique: true,
         allowNull: false,
     },
