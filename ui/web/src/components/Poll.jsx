@@ -15,7 +15,6 @@ function Poll(props) {
     const params = useParams();
     const { id } = params;
 
-
     useEffect(() => {
         const fetchData = async () => {
             const pollData = await axios
@@ -58,20 +57,20 @@ function Poll(props) {
     console.log('options', options);
     console.log('votes', votes);
 
-    const insertVote = async (data, voteId) => {
-        const getVotes = await axios.get(`http://localhost:4000/api/v1/votes/${voteId}`)
-            .then(res => { return res.data.data })
-            .catch(err => console.log(err))
-
+    const insertVote = async (data, votes) => {
         const { option } = data;
+        console.log(votes);
+        console.log(option);
+        
+        setVotes({...votes, [option]: votes[option] += 1}) 
 
-        const newVote = getVotes[option] += 1;
-
-        // const insertVote = await axios.post(`http://localhost:4000/api/v1/votes/${}`)
+        const insertVote = await axios.put(`http://localhost:4000/api/v1/votes/${votes.id}`, {changes: votes})
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     const onSubmit = async (data) => {
-        insertVote(data, votes.id) 
+        insertVote(data, votes) 
     }
 
     return (
@@ -143,6 +142,7 @@ function Poll(props) {
                                     value="votes_rating_1"
                                 />
                                 <label>{options.name_rating_1}</label>
+                                <p>votos: {votes.votes_rating_1}</p>
                             </div>
                             <div className="form-group">
                                 <input 
@@ -151,6 +151,7 @@ function Poll(props) {
                                     value="votes_rating_2"
                                 />
                                 <label>{options.name_rating_2}</label>
+                                <p>votos: {votes.votes_rating_2}</p>
                             </div>
                             <div className="form-group">
                                 <input 
@@ -159,6 +160,7 @@ function Poll(props) {
                                     value="votes_rating_3"
                                 />
                                 <label>{options.name_rating_3}</label>
+                                <p>votos: {votes.votes_rating_3}</p>
                             </div>
                             <div className="form-group">
                                 <input 
@@ -167,6 +169,7 @@ function Poll(props) {
                                     value="votes_rating_4"
                                 />
                                 <label>{options.name_rating_4}</label>
+                                <p>votos: {votes.votes_rating_4}</p>
                             </div>
                             <div className="form-group">
                                 <input 
@@ -175,6 +178,7 @@ function Poll(props) {
                                     value="votes_rating_5"
                                 />
                                 <label>{options.name_rating_5}</label>
+                                <p>votos: {votes.votes_rating_5}</p>
                             </div>
                         </>
                     )}
