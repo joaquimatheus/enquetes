@@ -7,7 +7,7 @@ module.exports = {
                 autoIncrement: true,
             },
             title: {
-                type: Sequelize.TEXT,
+                type: Sequelize.STRING,
                 unique: true,
                 allowNull: false,
             },
