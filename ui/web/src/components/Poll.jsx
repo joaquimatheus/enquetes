@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import Result from './Result';
+
 function Poll(props) {
     const [typePoll, setTypePoll] = useState();
 
     const [poll, setPoll] = useState();
     const [votes, setVotes] = useState();
     const [options, setOptions] = useState();
+    const [result, showResult] = useState(false);
 
     const { register, handleSubmit } = useForm();
 
@@ -42,9 +45,9 @@ function Poll(props) {
                 })
                 .catch((err) => console.error(err));
 
-            console.log('pollD', pollData);
-            console.log('optionsD', optionsData);
-            console.log('votesD', votesData);
+            console.log("pollD", pollData);
+            console.log("optionsD", optionsData);
+            console.log("votesD", votesData);
 
             setPoll(pollData);
             setOptions(optionsData);
@@ -53,31 +56,46 @@ function Poll(props) {
         fetchData();
     }, [axios, id]);
 
-    console.log('poll', poll);
-    console.log('options', options);
-    console.log('votes', votes);
+    console.log("poll", poll);
+    console.log("options", options);
+    console.log("votes", votes);
 
     const insertVote = async (data, votes) => {
         const { option } = data;
         console.log(votes);
         console.log(option);
-        
-        setVotes({...votes, [option]: votes[option] += 1}) 
 
-        const insertVote = await axios.put(`http://localhost:4000/api/v1/votes/${votes.id}`, {changes: votes})
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-    }
+        setVotes({ ...votes, [option]: (votes[option] += 1) });
+
+        const insertVote = await axios
+            .put(`http://localhost:4000/api/v1/votes/${votes.id}`, {
+                changes: votes,
+            })
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+    };
 
     const onSubmit = async (data) => {
-        insertVote(data, votes) 
-    }
+        insertVote(data, votes);
+    };
+
+    const handleClick = (ev) => {
+        console.log(result);
+        showResult(!result);
+    };
 
     return (
         <div className="container-inner">
-            <form onSubmit={handleSubmit(onSubmit)}id="enq" className="box">
+            <form onSubmit={handleSubmit(onSubmit)} id="enq" className="box">
                 <div>
-                    {poll && poll.type_poll == 'yes_no' && (
+                    {result == true && (
+                        <Result 
+                            title={poll.title} 
+                            type_poll={poll.type_poll} 
+                            votes={votes}
+                        /> 
+                    )}
+                    {poll && result == false && poll.type_poll == "yes_no" && (
                         <>
                             <h4 className="head-enq">{poll.title}</h4>
                             <div className="form-group">
@@ -100,44 +118,46 @@ function Poll(props) {
                             </div>
                         </>
                     )}
-                    {poll && poll.type_poll == 'name_dynamically' && (
-                        <>
-                            <h4 className="head-eqn">{poll.title}</h4> 
-                            <div className="form-group">
-                                <input 
-                                    {...register('option')}
-                                    type="radio"
-                                    value="votes_dynamic_1"
-                                />
-                                <label>{options.name_dynamic_1}</label>
-                                <p>votos: {votes.votes_dynamic_1}</p>
-                            </div>
-                            <div className="form-group">
-                                <input 
-                                    {...register('option')}
-                                    type="radio"
-                                    value="votes_dynamic_2"
-                                />
-                                <label>{options.name_dynamic_2}</label>
-                                <p>votos: {votes.votes_dynamic_2}</p>
-                            </div>
-                            <div className="form-group">
-                                <input 
-                                    {...register('option')}
-                                    type="radio"
-                                    value="votes_dynamic_3"
-                                />
-                                <label>{options.name_dynamic_3}</label>
-                                <p>votos: {votes.votes_dynamic_3}</p>
-                            </div>
-                        </>
-                    )}
-                    {poll && poll.type_poll == "rating" && (
+                    {poll &&
+                        result == false &&
+                        poll.type_poll == "name_dynamically" && (
+                            <>
+                                <h4 className="head-eqn">{poll.title}</h4>
+                                <div className="form-group">
+                                    <input
+                                        {...register("option")}
+                                        type="radio"
+                                        value="votes_dynamic_1"
+                                    />
+                                    <label>{options.name_dynamic_1}</label>
+                                    <p>votos: {votes.votes_dynamic_1}</p>
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        {...register("option")}
+                                        type="radio"
+                                        value="votes_dynamic_2"
+                                    />
+                                    <label>{options.name_dynamic_2}</label>
+                                    <p>votos: {votes.votes_dynamic_2}</p>
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        {...register("option")}
+                                        type="radio"
+                                        value="votes_dynamic_3"
+                                    />
+                                    <label>{options.name_dynamic_3}</label>
+                                    <p>votos: {votes.votes_dynamic_3}</p>
+                                </div>
+                            </>
+                        )}
+                    {poll && result == false && poll.type_poll == "rating" && (
                         <>
                             <h4 className="head-enq">{poll.title}</h4>
                             <div className="form-group">
-                                <input 
-                                    {...register('option')}
+                                <input
+                                    {...register("option")}
                                     type="radio"
                                     value="votes_rating_1"
                                 />
@@ -145,8 +165,8 @@ function Poll(props) {
                                 <p>votos: {votes.votes_rating_1}</p>
                             </div>
                             <div className="form-group">
-                                <input 
-                                    {...register('option')}
+                                <input
+                                    {...register("option")}
                                     type="radio"
                                     value="votes_rating_2"
                                 />
@@ -154,8 +174,8 @@ function Poll(props) {
                                 <p>votos: {votes.votes_rating_2}</p>
                             </div>
                             <div className="form-group">
-                                <input 
-                                    {...register('option')}
+                                <input
+                                    {...register("option")}
                                     type="radio"
                                     value="votes_rating_3"
                                 />
@@ -163,8 +183,8 @@ function Poll(props) {
                                 <p>votos: {votes.votes_rating_3}</p>
                             </div>
                             <div className="form-group">
-                                <input 
-                                    {...register('option')}
+                                <input
+                                    {...register("option")}
                                     type="radio"
                                     value="votes_rating_4"
                                 />
@@ -172,8 +192,8 @@ function Poll(props) {
                                 <p>votos: {votes.votes_rating_4}</p>
                             </div>
                             <div className="form-group">
-                                <input 
-                                    {...register('option')}
+                                <input
+                                    {...register("option")}
                                     type="radio"
                                     value="votes_rating_5"
                                 />
@@ -183,8 +203,21 @@ function Poll(props) {
                         </>
                     )}
                 </div>
-                <button className="btn-enq">Votar</button>
-                <button className="btn-enq">Resultado</button>
+                {result == false && (
+                    <>
+                        <button className="btn-enq">Votar</button>
+                        <button onClick={handleClick} className="btn-enq">
+                            Resultado
+                        </button>
+                    </>
+                )}
+                {result == true && (
+                    <>
+                        <button onClick={handleClick} className="btn-enq">
+                            Voltar
+                        </button>
+                    </>
+                )}
             </form>
         </div>
     );
