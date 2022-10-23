@@ -45,10 +45,6 @@ function Poll(props) {
                 })
                 .catch((err) => console.error(err));
 
-            console.log("pollD", pollData);
-            console.log("optionsD", optionsData);
-            console.log("votesD", votesData);
-
             setPoll(pollData);
             setOptions(optionsData);
             setVotes(votesData);
@@ -56,14 +52,8 @@ function Poll(props) {
         fetchData();
     }, [axios, id]);
 
-    console.log("poll", poll);
-    console.log("options", options);
-    console.log("votes", votes);
-
     const insertVote = async (data, votes) => {
         const { option } = data;
-        console.log(votes);
-        console.log(option);
 
         setVotes({ ...votes, [option]: (votes[option] += 1) });
 
@@ -105,7 +95,6 @@ function Poll(props) {
                                     value="votes_yes"
                                 />
                                 <label>{options.yes_option}</label>
-                                <p>votos: {votes.votes_yes}</p>
                             </div>
                             <div className="form-group">
                                 <input
@@ -114,7 +103,6 @@ function Poll(props) {
                                     value="votes_no"
                                 />
                                 <label>{options.no_option}</label>
-                                <p>votos: {votes.votes_no}</p>
                             </div>
                         </>
                     )}
@@ -130,7 +118,6 @@ function Poll(props) {
                                         value="votes_dynamic_1"
                                     />
                                     <label>{options.name_dynamic_1}</label>
-                                    <p>votos: {votes.votes_dynamic_1}</p>
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -139,7 +126,6 @@ function Poll(props) {
                                         value="votes_dynamic_2"
                                     />
                                     <label>{options.name_dynamic_2}</label>
-                                    <p>votos: {votes.votes_dynamic_2}</p>
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -148,7 +134,6 @@ function Poll(props) {
                                         value="votes_dynamic_3"
                                     />
                                     <label>{options.name_dynamic_3}</label>
-                                    <p>votos: {votes.votes_dynamic_3}</p>
                                 </div>
                             </>
                         )}
@@ -162,7 +147,6 @@ function Poll(props) {
                                     value="votes_rating_1"
                                 />
                                 <label>{options.name_rating_1}</label>
-                                <p>votos: {votes.votes_rating_1}</p>
                             </div>
                             <div className="form-group">
                                 <input
@@ -171,7 +155,6 @@ function Poll(props) {
                                     value="votes_rating_2"
                                 />
                                 <label>{options.name_rating_2}</label>
-                                <p>votos: {votes.votes_rating_2}</p>
                             </div>
                             <div className="form-group">
                                 <input
@@ -180,7 +163,6 @@ function Poll(props) {
                                     value="votes_rating_3"
                                 />
                                 <label>{options.name_rating_3}</label>
-                                <p>votos: {votes.votes_rating_3}</p>
                             </div>
                             <div className="form-group">
                                 <input
@@ -189,7 +171,6 @@ function Poll(props) {
                                     value="votes_rating_4"
                                 />
                                 <label>{options.name_rating_4}</label>
-                                <p>votos: {votes.votes_rating_4}</p>
                             </div>
                             <div className="form-group">
                                 <input
@@ -198,7 +179,6 @@ function Poll(props) {
                                     value="votes_rating_5"
                                 />
                                 <label>{options.name_rating_5}</label>
-                                <p>votos: {votes.votes_rating_5}</p>
                             </div>
                         </>
                     )}
