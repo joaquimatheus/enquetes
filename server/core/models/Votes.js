@@ -66,6 +66,9 @@ Votes.init({
         allowNull: false,
         defaultValue: 0,
     },
+    all_votes: {
+        type: DataTypes.INTEGER,
+    }
 }, {
     sequelize,
     modelName: 'votes',
