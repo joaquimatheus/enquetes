@@ -67,6 +67,7 @@ function Poll(props) {
 
     const onSubmit = async (data) => {
         insertVote(data, votes);
+        showResult(!result)
     };
 
     const handleClick = (ev) => {
@@ -185,7 +186,7 @@ function Poll(props) {
                 </div>
                 {result == false && (
                     <>
-                        <button className="btn-enq">Votar</button>
+                        <button onClick={handleSubmit} className="btn-enq">Votar</button>
                         <button onClick={handleClick} className="btn-enq">
                             Resultado
                         </button>
