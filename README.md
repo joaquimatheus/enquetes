@@ -11,6 +11,8 @@ npm install OU yarn install
 - Quando configurar voce pode rodar as migrations que estao na pasta server/migrations/*
 - Voce pode rodar as migrations usando *sequelize-cli*
 
+- misc é apenas uma pasta para representar algo, não para executar nada
+
 ``` shell
  npx sequelize-cli db:migrate
 ```
@@ -32,6 +34,7 @@ Depois execute o comando para rodar o web-server
 ```
 npm run dev
 ```
+
 
 PRONTO! Agora esta tudo certo!
 
